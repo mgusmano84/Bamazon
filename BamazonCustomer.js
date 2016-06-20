@@ -28,58 +28,43 @@ var InvSearch = function() {
         selectItem();
 };
 
-
+// Allows user to make a selection of the current inventory of items
 var selectItem = function() {
 		
-		inquirer.prompt([{
-			name: 'id',
-			type: 'input',
-			message: 'Please Select ID of the item you would like to by?',
-			validate: function(value) {
+	inquirer.prompt([{
+		name: 'id',
+		type: 'input',
+		message: 'Please Select ID of the item you would like to by?',
+		validate: function(value) {
+			if (isNaN(value) == false) {
+				return true;
 
-				
-				if (isNaN(value) == false) {
-
-					
-					return true;
-
-				} else {
-					console.log('\n\nAll we need is the number next to the title.\n');
-					return false;
-
-				} // end if else
-
-			} // end validate()
-		}, {
-			name: 'amount',
-			type: 'input',
-			message: 'How many would you like to buy?',
-			validate: function(value) {
-
-				
-				if (isNaN(value) == false) {
-
-					
-					return true;
-
-				} else {
-
-					
-					console.log('\nPlease supply ID\n');
-					return false;
-
-				} 
-
+			} else {
+				console.log('\n\nAll we need is the number next to the title.\n');
+				return false;
 			} 
+		} 
+	}, {
+		name: 'amount',
+		type: 'input',
+		message: 'How many would you like to buy?',
+		validate: function(value) {	
+			if (isNaN(value) == false) {				
+				return true;
+			} else {		
+				console.log('\nPlease supply ID\n');
+				return false;
+			} 
+		} 
 		
-		}]).then(function(answer) {
-
-			
-			console.log(answer);
-		
-		});  
-
+	}]).then(function(answer) {			
+			makePurchase(answer);		
+	});  
 }; 
+
+var makePurchase = function {
+	
+}
 
 
 
