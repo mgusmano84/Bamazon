@@ -77,7 +77,7 @@ var selectItem = function() {
 						if (err) throw err;
 						else {
 							console.log("Congrats on your purchase! Your total cost is $"+ totalPrice);
-							InvSearch();
+							redo();
 						}
 					})	
 				}
@@ -85,8 +85,24 @@ var selectItem = function() {
 		})
 	  
 }; 
-
-// 
+//Asks if the user would like to make another purchase
+var redo = function() {
+	inquirer.prompt({
+        type: "confirm",
+        message: "Would you like to make another purchase?",
+        name: "confirm",
+        default: true
+    
+		}).then(function(answer) {
+			if (answer.confirm)
+			{
+				InvSearch();
+			}
+			else {
+				console.log("Please come back again!")
+			}
+		}) 	
+}
 
 
 
