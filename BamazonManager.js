@@ -17,10 +17,10 @@ var options = function() {
         type: "list",
         message: "Welcome to Bamazon Manager, what would you like to do?",
         choices: ["View Products for Sale", "View Low Inventory", "Add to Inventory", "Add New Product"],
-        name: "pokemon"
+        name: "pic"
     	}
 	]).then(function (choice) {
-		console.log(choice.pokemon)
+		console.log(choice.pic)
 	})
 
 }
