@@ -23,8 +23,7 @@ var options = function() {
 
 		switch(choice.pic) {
                 case 'View Products for Sale': 
-                    // forSale();
-                    console.log("test")
+                    forSale();
                     break;
                 case 'View Low Inventory':
                     lowInventory();
@@ -41,5 +40,22 @@ var options = function() {
 }
 //runs slections to choose from and switch cases
 options();
+
+// Pulls data from products data
+var forSale = function () {
+        var query = 'SELECT * FROM products';
+        connection.query(query, function(err, res) {
+        	console.log(' Available Products')
+            console.log('***********************************')
+            for (var i = 0; i < res.length; i++) {
+                console.log("Item ID:  " + res[i].ItemID + " || Product Name: " + res[i].ProductName + " || Department: " + res[i].DepartmentName + " || Price: " + res[i].Price + " || Quanity: " + res[i].StockQuantity);
+            }
+        })
+        options();
+};
+
+var lowInventory = function () {
+	
+}
 
 
