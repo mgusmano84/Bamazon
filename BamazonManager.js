@@ -122,9 +122,44 @@ var addInventory = function() {
 	})
 	
 };
+//allows manager to add new produts to the storefront
+var newProduct = function() {
+	inquirer.prompt([{
+		name: 'name',
+		type: 'input',
+		message: 'What is the name of the item you would like to add?',
+	}, {
+		name: 'department',
+		type: 'input',
+		message: 'Add to what Department?',
+	}, {
+		name: 'price',
+		type: 'input',
+		message: 'What is the price?',
+		validate: function(value) {	
+			if (isNaN(value) == false) {				
+				return true;
+			} else {		
+				console.log('\nPlease supply total\n');
+				return false;
+			} 
+		} 
+	}, {
+		name: 'quantity',
+		type: 'input',
+		message: 'Starting inventory?',
+		validate: function(value) {	
+			if (isNaN(value) == false) {				
+				return true;
+			} else {		
+				console.log('\nPlease supply total\n');
+				return false;
+			} 
+		} 
+	}]).then(function(answer) {
+		console.log(answer)
+	})
 
-var newProduct = function {
-	
 }
 
 
