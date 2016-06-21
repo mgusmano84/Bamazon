@@ -55,7 +55,19 @@ var forSale = function () {
 };
 
 var lowInventory = function () {
-	
+	var query = 'SELECT * FROM products';
+        connection.query(query, function(err, res) {
+        	console.log(' Low Inventory Products')
+            console.log('***********************************')
+            for (var i = 0; i < res.length; i++) {
+            	if (res[i].StockQuantity < 5)
+            	{
+            		console.log(res[i].ItemID, res[i].ProductName, res[i].Price, res[i].StockQuantity)
+            	}
+            }
+        })
+        options();
+
 }
 
 
