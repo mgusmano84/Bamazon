@@ -20,10 +20,26 @@ var options = function() {
         name: "pic"
     	}
 	]).then(function (choice) {
-		console.log(choice.pic)
+
+		switch(choice.pic) {
+                case 'View Products for Sale': 
+                    // forSale();
+                    console.log("test")
+                    break;
+                case 'View Low Inventory':
+                    lowInventory();
+                    break;
+                case 'Add to Inventory':
+                    addInventory();
+                    break;
+                case 'Add New Product':
+                    newProduct();
+                    break;
+            }
 	})
 
 }
-
-
+//runs slections to choose from and switch cases
 options();
+
+
