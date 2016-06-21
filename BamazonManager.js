@@ -53,7 +53,7 @@ var forSale = function () {
         })
         options();
 };
-
+//check for items that have a quanity of less than 5
 var lowInventory = function () {
 	var query = 'SELECT * FROM products';
         connection.query(query, function(err, res) {
@@ -67,7 +67,64 @@ var lowInventory = function () {
             }
         })
         options();
+};
+//allows manager to add more of current items already stocked in the store
+var addInventory = function() {
+	var query = 'SELECT * FROM products';
+    connection.query(query, function(err, res) {
+     	if (err) throw err;
+     	console.log(' Current Products')
+        console.log('***********************************')
+            for (var i = 0; i < res.length; i++) {
+                console.log("Item ID:  " + res[i].ItemID + " || Product Name: " + res[i].ProductName + " ||  Quantity: " + res[i].StockQuantity)
+            }
+    })
+    inquirer.prompt([{
+		name: 'id',
+		type: 'input',
+		message: 'Please Select ID of the item you would like to add too?',
+		validate: function(value) {
+			if (isNaN(value) == false) {
+				return true;
 
+			} else {
+				console.log('\nAdd a valid ID Number.\n');
+				return false;
+			} 
+		} 
+	}, {
+		name: 'total',
+		type: 'input',
+		message: 'How many would you like to add?',
+		validate: function(value) {	
+			if (isNaN(value) == false) {				
+				return true;
+			} else {		
+				console.log('\nPlease supply quantity\n');
+				return false;
+			} 
+		}
+
+	}]).then(function(answer) {	
+		console.log(answer);
+		IntItem = parseInt(answer.total);
+		connection.query("SELECT * FROM Products WHERE ?", [{ItemID: answer.id}], function(err, data) { 
+			if (err) throw err;
+			var newQuantity = data[0].StockQuantity + IntItem;
+			connection.query('UPDATE products SET StockQuantity = ? WHERE ItemID = ?', [newQuantity, answer.id], function(err, results) {
+				if (err) throw err;
+				else {
+					console.log("You have increase this item to a new total of: "+ newQuantity);
+					options();
+				}
+			})
+		})
+	})
+	
+};
+
+var newProduct = function {
+	
 }
 
 

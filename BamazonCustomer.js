@@ -40,7 +40,7 @@ var selectItem = function() {
 				return true;
 
 			} else {
-				console.log('\nAll we need is the number next to the title.\n');
+				console.log('\nAdd a valid ID number.\n');
 				return false;
 			} 
 		} 
@@ -52,7 +52,7 @@ var selectItem = function() {
 			if (isNaN(value) == false) {				
 				return true;
 			} else {		
-				console.log('\nPlease supply ID\n');
+				console.log('\nPlease supply total\n');
 				return false;
 			} 
 		} 
@@ -60,7 +60,7 @@ var selectItem = function() {
 	}]).then(function(answer) {			
 			console.log(answer);
 			IntItem = parseInt(answer.total);
-			console.log(IntItem)
+			console.log(IntItem);
 			connection.query("SELECT * FROM Products WHERE ?", [{ItemID: answer.id}], function(err, data) { 
 				if (err) throw err;
 				if (data[0].StockQuantity < IntItem) {
