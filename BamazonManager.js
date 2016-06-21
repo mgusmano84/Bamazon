@@ -10,7 +10,8 @@ var connection = mysql.createConnection({
 })
 
 
-var choices = function () {
+
+var options = function() {
 	inquirer.prompt([
 		{
         type: "list",
@@ -19,7 +20,10 @@ var choices = function () {
         name: "pokemon"
     	}
 	]).then(function (choice) {
-
+		console.log(choice.pokemon)
 	})
 
 }
+
+
+options();
