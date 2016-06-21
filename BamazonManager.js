@@ -62,7 +62,7 @@ var lowInventory = function () {
             for (var i = 0; i < res.length; i++) {
             	if (res[i].StockQuantity < 5)
             	{
-            		console.log(res[i].ItemID, res[i].ProductName, res[i].Price, res[i].StockQuantity)
+            		console.log("Item: " + res[i].ItemID + " || Product: " + res[i].ProductName + " || Total: " + res[i].StockQuantity)
             	}
             }
         })
@@ -125,7 +125,7 @@ var addInventory = function() {
 //allows manager to add new produts to the storefront
 var newProduct = function() {
 	inquirer.prompt([{
-		name: 'name',
+		name: 'proname',
 		type: 'input',
 		message: 'What is the name of the item you would like to add?',
 	}, {
@@ -158,6 +158,15 @@ var newProduct = function() {
 		} 
 	}]).then(function(answer) {
 		console.log(answer)
+		proName = answer.proname;
+		deptName = answer.department;
+		intPrice = parseInt(answer.price);
+		intQuantity = parseInt(answer.quantity);
+		connection.query('INSERT INTO products SET ProductName = ?, DepartmentName = ?, Price = ?, StockQuantity = ?', [proName, deptName, intPrice, intQuantity], function(err, results) {
+		if (err) throw err;
+		console.log("You have added the " + proName + " to the database");
+		options();
+		})
 	})
 
 }
