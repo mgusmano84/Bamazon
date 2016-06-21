@@ -40,12 +40,12 @@ var selectItem = function() {
 				return true;
 
 			} else {
-				console.log('\n\nAll we need is the number next to the title.\n');
+				console.log('\nAll we need is the number next to the title.\n');
 				return false;
 			} 
 		} 
 	}, {
-		name: 'amount',
+		name: 'total',
 		type: 'input',
 		message: 'How many would you like to buy?',
 		validate: function(value) {	
@@ -58,13 +58,35 @@ var selectItem = function() {
 		} 
 		
 	}]).then(function(answer) {			
-			makePurchase(answer);		
-	});  
+			console.log(answer);
+			IntItem = parseInt(answer.total);
+			console.log(IntItem)
+			connection.query("SELECT * FROM Products WHERE ?", [{ItemID: answer.id}], function(err, data) { 
+				if (err) throw err;
+				if (data[0].StockQuantity < IntItem) {
+				console.log("Sorry, the quanity selected is currently not availible, please make another selection");
+				InvSearch()
+				}	
+				else {
+					//Setting a new quantity for the item
+					var newQuantity = data[0].StockQuantity - IntItem;
+					//Calculating the total price
+					var totalPrice = data[0].Price * IntItem;
+					//Updating the table inventory
+					connection.query('UPDATE products SET StockQuantity = ? WHERE ItemID = ?', [newQuantity, answer.id], function(err, results) {
+						if (err) throw err;
+						else {
+							console.log("Congrats on your purchase! Your total cost is $"+ totalPrice);
+							InvSearch();
+						}
+					})	
+				}
+			})
+		})
+	  
 }; 
 
-var makePurchase = function {
-	
-}
+// 
 
 
 
